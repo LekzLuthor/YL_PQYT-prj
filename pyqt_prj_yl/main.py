@@ -9,10 +9,32 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('main_window.ui', self)
-        update()
+
+        self.currencies = ['Рубль', 'Евро', 'Доллар США', 'Японская иена',
+                           'Фунт стерлингов', 'Швейцарский франк', 'Украинская гривна']
+        self.headlines = ['Валюта', 'Предложение', 'Пред. закрытие',
+                          '%', 'Абсол. значение', 'Время']
+
         self.CONV_WIN = ConvertWindow()
         self.to_convert_btn.clicked.connect(self.to_convert_window)
         self.update_curr.clicked.connect(self.load_curr_table_data)
+
+        self.headlines[0] = self.currencies[0]
+        self.RUB_table.setColumnCount(len(self.headlines))
+        self.RUB_table.setHorizontalHeaderLabels(self.headlines)
+        self.RUB_table.setRowCount(6)
+
+        self.headlines[0] = self.currencies[1]
+        self.EUR_table.setColumnCount(len(self.headlines))
+        self.EUR_table.setHorizontalHeaderLabels(self.headlines)
+        self.EUR_table.setRowCount(4)
+
+        self.headlines[0] = self.currencies[2]
+        self.USD_table.setColumnCount(len(self.headlines))
+        self.USD_table.setHorizontalHeaderLabels(self.headlines)
+        self.USD_table.setRowCount(4)
+
+        update()
         self.load_curr_table_data()
 
     def to_convert_window(self):
@@ -20,28 +42,35 @@ class MainWindow(QMainWindow):
 
     def load_curr_table_data(self):
         alphabet = set('абвгдеёжзийклмнопрстуфхцчшщъыьэюя')
-        currencies = ['Рубль', 'Евро', 'Доллар США', 'Японская иена',
-                      'Фунт стерлингов', 'Швейцарский франк', 'Украинская гривна']
-        headlines = ['Предложение', 'Пред. закрытие',
-                     '%', 'Абсол. значение', 'Время']
-        self.curr_table1.setColumnCount(len(headlines))
-        self.curr_table1.setHorizontalHeaderLabels(headlines)
-        self.curr_table1.setRowCount(6)
-
-        self.curr_table2.setColumnCount(len(headlines))
-        self.curr_table2.setHorizontalHeaderLabels(headlines)
-        self.curr_table2.setRowCount(4)
-
-        self.curr_table3.setColumnCount(len(headlines))
-        self.curr_table3.setHorizontalHeaderLabels(headlines)
-        self.curr_table3.setRowCount(4)
-
+        dop_row_counter = 0
         with open('url_data_values.txt', 'r', encoding='utf-8') as file:
-            for line_num, line in enumerate(file):
+            for line_num, line in enumerate(file.readlines()):
                 if line_num < 7:
                     if alphabet.isdisjoint(line.lower()):
-                        for elem_num, elem in enumerate(line):
-                            self.curr_table1.setItem(line_num, elem_num, elem)
+                        fp, sp = line.split('%')
+                        line = ''.join([fp, sp])
+                        for elem_num, elem in enumerate(line.split()):
+                            self.RUB_table.setItem(line_num - 1, elem_num, QTableWidgetItem(str(elem)))
+                if 7 < line_num < 12:
+                    if alphabet.isdisjoint(line.lower()):
+                        fp, sp = line.split('%')
+                        line = ''.join([fp, sp])
+                        for elem_num, elem in enumerate(line.split()):
+                            self.EUR_table.setItem(dop_row_counter, elem_num, QTableWidgetItem(str(elem)))
+                        dop_row_counter += 1
+                if 12 < line_num < 17:
+                    if alphabet.isdisjoint(line.lower()):
+                        fp, sp = line.split('%')
+                        line = ''.join([fp, sp])
+                        for elem_num, elem in enumerate(line.split()):
+                            self.USD_table.setItem(dop_row_counter, elem_num, QTableWidgetItem(str(elem)))
+                        dop_row_counter += 1
+                if dop_row_counter >= 4:
+                    dop_row_counter = 0
+
+        self.RUB_table.resizeColumnsToContents()
+        self.EUR_table.resizeColumnsToContents()
+        self.USD_table.resizeColumnsToContents()
 
 
 def excepthook(exc_type, exc_value, exc_tb):
