@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>588</width>
-    <height>573</height>
+    <width>403</width>
+    <height>672</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,32 +17,318 @@
    <string notr="true">background-color: #22222e;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="accept_button">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>250</y>
+      <x>85</x>
+      <y>570</y>
       <width>231</width>
       <height>61</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
-	border 2px;
-	border: 3px solid #ff7073;
 	border-radius: 12;
 	color: white;
 	background-color:fb5b5d;
 }
 QPushButton:hover{
-	background-color: #ff7073;
+	background-color: rgb(234, 74, 0);
 }
 QPushButton:pressed{
-	background-color: #ff004;
+	background-color: rgb(204, 54, 0);
 }</string>
     </property>
     <property name="text">
-     <string>Congretulations</string>
+     <string>Convert</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="first_value">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>310</y>
+      <width>341</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(254, 84, 0);
+background-color:fb5b5d;
+border: 2px solid black;
+border-radius: 7px;
+</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>RUB</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>EUR</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>USD</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JPY</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>GBP</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>CHF</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>UAH</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="second_value">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>500</y>
+      <width>341</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(254, 84, 0);
+background-color:fb5b5d;
+border: 2px solid black;
+border-radius: 7px;
+</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>RUB</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>EUR</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>USD</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JPY</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>GBP</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>CHF</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>UAH</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>-80</x>
+      <y>-10</y>
+      <width>551</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(224, 64, 0);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>125</x>
+      <y>10</y>
+      <width>151</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>C:/Users/kosha/Downloads/currency-icon-26.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>160</y>
+      <width>311</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>CentSchbkCyrill BT</family>
+      <pointsize>20</pointsize>
+      <strikeout>false</strikeout>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: transparent;
+color: white;</string>
+    </property>
+    <property name="text">
+     <string>Конвертер валют</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="replace_btn">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>370</y>
+      <width>71</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 12;
+	color: white;
+	background-color:fb5b5d;
+}
+QPushButton:hover{
+	background-color: rgb(234, 74, 0);
+}
+QPushButton:pressed{
+	background-color: rgb(204, 54, 0);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>C:/Users/kosha/Downloads/seta-branca-png-1.png</normaloff>C:/Users/kosha/Downloads/seta-branca-png-1.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>50</width>
+      <height>50</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="first_count">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>250</y>
+      <width>341</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(254, 84, 0);
+background-color:fb5b5d;
+border: 2px solid black;
+border-radius: 7px;</string>
+    </property>
+    <property name="decimals">
+     <number>2</number>
+    </property>
+    <property name="maximum">
+     <double>10000000.000000000000000</double>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="second_count">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>440</y>
+      <width>341</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(254, 84, 0);
+background-color:fb5b5d;
+border: 2px solid black;
+border-radius: 7px;</string>
+    </property>
+    <property name="maximum">
+     <double>10000000.000000000000000</double>
     </property>
    </widget>
   </widget>
