@@ -15,6 +15,12 @@ class MainWindow(QMainWindow):
                            'Фунт стерлингов', 'Швейцарский франк', 'Украинская гривна']
         self.headlines = ['Валюта', 'Предложение', 'Пред. закрытие',
                           '%', 'Абсол. значение', 'Время']
+
+        # ошибка связанная с индикаторами (100:1)
+        # заключается в том, что по умолчанию в 4-ой таблице выводится валюта "Японская иена",
+        # которая имеет строки (100:1), однако в comboBoxe который служит датчиком для появления этого индикатора
+        # по умолчанию стоит EUR. Данная переменная отслеживает,
+        # был ли когда-либо задействован comboBox, что предотвращает ошибку
         self.is_jpy_error_checker = True
 
         self.CONV_WIN = ConvertWindow()
@@ -60,11 +66,13 @@ class MainWindow(QMainWindow):
         update()
         self.load_curr_table_data()
 
+    # Вывод часов
     def showTime(self):
         current_time = QTime.currentTime()
         label_time = current_time.toString('hh:mm:ss')
         self.time_show.setText(label_time)
 
+    # функции show_table и hide_table скрывают и показывают необходимые таблицы, а так же связанные с ними кнопки
     def show_table(self):
         if self.sender().objectName() == 'show_ft':
             self.RUB_table.show()
@@ -130,9 +138,11 @@ class MainWindow(QMainWindow):
                 self.JPY_31.setText('')
                 self.JPY_32.setText('')
 
+    # открытие конвертера
     def to_convert_window(self):
         self.CONV_WIN.show()
 
+    # Загрузка всех таблиц по умолчанию
     def load_curr_table_data(self):
         f = open('url_data_values.txt', 'w')
         f.close()
@@ -176,6 +186,9 @@ class MainWindow(QMainWindow):
                 if dop_row_counter >= 4:
                     dop_row_counter = 0
 
+    # при парсинге валюты загоняются в файл в четкой последовательности, поэтому для вывода конкретной валюты
+    # достаточно лишь найти необходимый диапазон строчек в которых находится валюта
+    # данная функция возвращает диапазон по введенной валюте
     @staticmethod
     def replace_val_dp(new_value):
         start_file_line = 0
@@ -200,10 +213,14 @@ class MainWindow(QMainWindow):
             end_file_line = 37
         return start_file_line, end_file_line
 
+    # функция заменяет выбранную таблицу на новую
     def replace_table(self):
         dop_row_counter = 0
         if self.sender().objectName() == 'replace_btn_1':
             value = self.rep_val_1.currentText()
+            # Специфика валют JPY и CHF Заключается в том, что в некоторых столбца вторым элементов выводится соотношение (100:1)
+            # поэтому вывод данных таблицы производится несколько иным образом. Тоже самое происходит и при конвертации валют, а так же
+            # при выводе таблиц по умолчанию
             if value != 'JPY' and value != 'CHF':
                 start, end = self.replace_val_dp(value)
                 with open('url_data_values.txt', 'r', encoding='utf-8') as file:
@@ -216,6 +233,9 @@ class MainWindow(QMainWindow):
                             dop_row_counter += 1
                     if dop_row_counter >= 4:
                         dop_row_counter = 0
+                # некоторые валюты имеют слишком маленький курс, поэтому соотношение выводится 100 к 1
+                # в таком случае срабатывает этот индикатор,
+                # который показывает конкретные столбцы с данным соотношением
                 self.JPY_11.setText('')
                 self.JPY_12.setText('')
                 self.CHF_1.setText('')

@@ -13,6 +13,8 @@ class ConvertWindow(QMainWindow):
         self.accept_button.clicked.connect(self.convert)
         self.replace_btn.clicked.connect(self.replace)
 
+    # Функция получает на вход валют из которой нужно конвертировать, и валюту в которую нужно конвертировать
+    # и возвращает их соотношение
     @staticmethod
     def get_data(from_cur, to_cur):
         alphabet = set('абвгдеёжзийклмнопрстуфхцчшщъыьэюя')
@@ -62,6 +64,7 @@ class ConvertWindow(QMainWindow):
                     if to_cur in line.split()[0].split('/')[0] and from_cur in line.split()[0].split('/')[1]:
                         return round((1 / float(line.split()[1].replace(',', '.'))), 4)
 
+    # Конвертация валют
     def convert(self):
         first_value_count = self.first_count.value()
         first_value = self.first_value.currentText()
@@ -69,6 +72,7 @@ class ConvertWindow(QMainWindow):
         exchange = self.get_data(first_value, second_value)
         self.second_count.setValue(float(first_value_count * exchange))
 
+    # Функция меняет значения местами, привязана к кнопке посередине
     def replace(self):
         first_value_count = self.first_count.value()
         second_value_count = self.second_count.value()
