@@ -41,7 +41,10 @@ class ConvertWindow(QMainWindow):
                 for line in file.readlines():
                     if alphabet.isdisjoint(line.lower()):
                         if to_cur in line.split()[0].split('/')[1] and from_cur in line.split()[0].split('/')[0]:
-                            return float(line.split()[1].replace(',', '.'))
+                            if str(line.split()[1]) == '(100:1)':
+                                return float(line.split()[2].replace(',', '.'))
+                            else:
+                                return float(line.split()[1].replace(',', '.'))
             elif from_cur == 'GBP':
                 for line in file.readlines():
                     if alphabet.isdisjoint(line.lower()):
@@ -50,7 +53,10 @@ class ConvertWindow(QMainWindow):
             elif from_cur == 'CHF':
                 for line in file.readlines():
                     if to_cur in line.split()[0].split('/')[0] and from_cur in line.split()[0].split('/')[1]:
-                        return round((1 / float(line.split()[1].replace(',', '.'))), 4)
+                        if str(line.split()[1]) == '(100:1)':
+                            return round((1 / float(line.split()[2].replace(',', '.'))), 4)
+                        else:
+                            return round((1 / float(line.split()[1].replace(',', '.'))), 4)
             elif from_cur == 'UAH':
                 for line in file.readlines():
                     if to_cur in line.split()[0].split('/')[0] and from_cur in line.split()[0].split('/')[1]:
@@ -61,15 +67,10 @@ class ConvertWindow(QMainWindow):
         first_value = self.first_value.currentText()
         second_value = self.second_value.currentText()
         exchange = self.get_data(first_value, second_value)
-        print(first_value)
-        print(second_value)
-        print(exchange)
         self.second_count.setValue(float(first_value_count * exchange))
 
     def replace(self):
         first_value_count = self.first_count.value()
         second_value_count = self.second_count.value()
-        first_value = self.first_value.currentText()
-        second_value = self.second_value.currentText()
         self.first_count.setValue(second_value_count)
         self.second_count.setValue(first_value_count)
